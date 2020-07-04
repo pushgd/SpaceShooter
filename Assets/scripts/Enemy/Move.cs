@@ -22,4 +22,5 @@ public class Move : MonoBehaviour
         transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime * speed;
     }
 
+
 }

@@ -14,12 +14,17 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     AudioClip fire;
 
+    [SerializeField]
+    ParticleSystem firePartical;
+
     public string[] gunName;
 
     private Transform[] gunList;
     private float coolDown;
 
     GameObject g1;
+    private ParticleSystem p;
+
     void Start()
     {
         g1 = Resources.Load<GameObject>(bullet);
@@ -51,16 +56,19 @@ public class PlayerShoot : MonoBehaviour
 
             foreach (Transform gun in gunList)
             {
-
-
-
                 GameObject b = Instantiate(g1, gun.position, gun.rotation);
+                p = Instantiate(firePartical, gun.position, gun.rotation);
+                Destroy(p.gameObject,1);
+
             }
             coolDown = 0;
             audioSource.PlayOneShot(fire);
+            
         }
         coolDown += Time.deltaTime;
         //print("coolDown" + coolDown);
 
     }
+
+
 }

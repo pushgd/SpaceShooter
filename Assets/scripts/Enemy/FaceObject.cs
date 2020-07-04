@@ -17,6 +17,10 @@ public class FaceObject : MonoBehaviour
     private void Start()
     {
         shoot = GetComponent<Shoot>();
+        if(target == null)
+        {
+            target =GameObject.FindGameObjectWithTag("Player");
+        }
     }
     void Update()
     {

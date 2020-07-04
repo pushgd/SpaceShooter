@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
         transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime*speed;
        
     }
-
+  
     private void handleInput()
     {
         respondToMovementInput();
@@ -84,9 +84,16 @@ public class Player : MonoBehaviour
             //rigidBody.angularVelocity = 0;
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         print("Collided");
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Contains("Enemy"))
+        {
+            print("Player Collided "+ other.gameObject.tag);
+        }
+        
     }
 }
