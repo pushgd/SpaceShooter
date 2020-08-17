@@ -54,13 +54,14 @@ public class Shoot : MonoBehaviour
 
     public void targetInSight(GameObject target,Vector3 direction)
     {
-        //print("Can shoot in Direction " + direction.normalized);
+       
         if (coolDown > fireRate)
         {
 
             foreach (Transform t in gunList)
             {
                 GameObject b = Instantiate(g1, t.position, transform.rotation);
+                
             }
             coolDown = 0;
             audioSource.PlayOneShot(fire);

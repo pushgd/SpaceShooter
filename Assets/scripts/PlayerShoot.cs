@@ -15,7 +15,7 @@ public class PlayerShoot : MonoBehaviour
     AudioClip fire;
 
     [SerializeField]
-    ParticleSystem firePartical;
+    FireButton fireButton;
 
     public string[] gunName;
 
@@ -51,14 +51,13 @@ public class PlayerShoot : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetButton("Fire1") && coolDown > fireRate)
+        if (fireButton.isPressed() && coolDown > fireRate)
         {
 
             foreach (Transform gun in gunList)
             {
                 GameObject b = Instantiate(g1, gun.position, gun.rotation);
-                p = Instantiate(firePartical, gun.position, gun.rotation);
-                Destroy(p.gameObject,1);
+               
 
             }
             coolDown = 0;

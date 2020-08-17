@@ -17,9 +17,9 @@ public class FaceObject : MonoBehaviour
     private void Start()
     {
         shoot = GetComponent<Shoot>();
-        if(target == null)
+        if (target == null)
         {
-            target =GameObject.FindGameObjectWithTag("Player");
+            target = GameObject.FindGameObjectWithTag("Player");
         }
     }
     void Update()
@@ -27,7 +27,7 @@ public class FaceObject : MonoBehaviour
 
         Vector3 directionVector = target.transform.position - transform.position;
 
-        float angle = Mathf.Atan2(directionVector.y, directionVector.x) * Mathf.Rad2Deg-90;
+        float angle = Mathf.Atan2(directionVector.y, directionVector.x) * Mathf.Rad2Deg - 90;
         if (angle < 0)
         {
             angle = angle + 360;
@@ -36,7 +36,7 @@ public class FaceObject : MonoBehaviour
 
         Debug.DrawRay(transform.position, directionVector, Color.red);
 
-        
+
         float currentZ = transform.eulerAngles.z;
         Vector3 delta = new Vector3(0, 0, 0);
         if (currentZ > angle)
@@ -75,7 +75,7 @@ public class FaceObject : MonoBehaviour
         {
             diff = diff + 360;
         }
-        if(diff<5)
+        if (diff < 5)
         {
             shoot.targetInSight(target, directionVector);
         }

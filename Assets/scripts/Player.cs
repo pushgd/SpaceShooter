@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
@@ -13,25 +14,64 @@ public class Player : MonoBehaviour
     [Tooltip("Max Speed")]
     float speed = 5;
 
- 
+
     [SerializeField]
     VirtualJoystick joystick;
+    [SerializeField]
+    float HP = 15;
+
+    [SerializeField]
+    float SP = 15;
+
+    [SerializeField]
+    float shieldRechargeDelay = 1;
+
+    [SerializeField]
+    float shieldRechargeRate = 0.5f;
+
+    float shieldCooldown;
+
+
+    [SerializeField]
+    Image HPBar;
+    [SerializeField]
+    Image SPBar;
+
+    float maxHP;
+    float maxSP;
     // Start is called before the first frame update
-    
+
+
     void Start()
     {
-        
+        maxHP = HP;
+        maxSP = SP;
     }
 
     // Update is called once per frame
     void Update()
     {
         handleInput();
+        rechargeShield();
+        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime * speed;
 
-        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime*speed;
-       
     }
-  
+
+    private void rechargeShield()
+    {
+
+        shieldCooldown += Time.deltaTime;
+        if (shieldCooldown > shieldRechargeDelay && SP < maxSP)
+        {
+            print("recharing Shield");
+            SP += shieldRechargeRate;
+
+        }
+        SPBar.fillAmount = (float)SP / (float)maxSP;
+
+
+    }
+
     private void handleInput()
     {
         respondToMovementInput();
@@ -84,16 +124,60 @@ public class Player : MonoBehaviour
             //rigidBody.angularVelocity = 0;
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+
+    private void OnDestroy()
     {
-        print("Collided");
+        //
     }
-    private void OnTriggerEnter2D(Collider2D other)
+
+    void onPlayerDie()
     {
-        if (other.gameObject.tag.Contains("Enemy"))
+        SceneManager.LoadScene(0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag.Contains("EnemyBullet"))
         {
-            print("Player Collided "+ other.gameObject.tag);
+            //print("Player Collided " + collision.gameObject.tag);
+
+            Bullet b = collision.gameObject.GetComponent<Bullet>();
+            if (b.getHP() > 0)
+            {
+                b.reduceHPby(1);
+                int damage = b.getDamage();
+
+                takeDamage(damage,collision.gameObject);
+
+                if (HP <= 0)
+                {
+
+                    Destroy(this.gameObject, 2);
+                    Invoke("onPlayerDie", 1);
+                }
+            }
+
+
         }
-        
+
+    }
+
+    private void takeDamage(int damage,GameObject g)
+    {
+
+        if (SP > 0)
+        {
+            SP -= damage;
+            GetComponent<Shield>().onShieldDamage(g);
+        }
+        else
+        {
+            HP -= damage;
+            HPBar.fillAmount = (float)HP / (float)maxHP;
+        }
+        shieldCooldown = 0;
+       
     }
 }

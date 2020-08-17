@@ -10,14 +10,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     ParticleSystem explosion;
 
-    [SerializeField]
-    AudioClip explosionSound;
-
-    AudioSource audioSource;
     private ParticleSystem p;
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -30,29 +26,31 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag.ToLower().Contains("Playerbullet".ToLower()))
         {
-
-            int damage = collision.gameObject.GetComponent<Bullet>().getDamage();
-            print(" Enemy Collided " + collision.gameObject.tag + " " + damage);
-            HP -= damage;
-            if (HP <= 0)
+            Bullet b = collision.gameObject.GetComponent<Bullet>();
+            if (b.getHP() > 0)
             {
-                print("Zero HP");
-                p = Instantiate(explosion, transform.position, transform.rotation);
+                b.reduceHPby(1);
+                int damage = b.getDamage();
+                print(" Enemy Collided " + collision.gameObject.tag + " " + damage);
+                HP -= damage;
+                if (HP <= 0)
+                {
+                   
+                    Destroy(gameObject.GetComponent<FaceObject>());
+                    Destroy(gameObject.GetComponent<BoxCollider2D>());
 
-                Destroy(gameObject.GetComponent<FaceObject>());
+                    Destroy(this.gameObject);
+                    Instantiate(explosion, transform.position, transform.rotation);
 
-                Destroy(this.gameObject, 1);
-
+                }
             }
-
+            else
+            {
+                print("Bullet HP is zero");
+            }
         }
 
 
     }
-    private void OnDestroy()
-    {
-        p = Instantiate(explosion, transform.position, transform.rotation);
-        Destroy(p.gameObject, 1);
-        audioSource.PlayOneShot(explosionSound);
-    }
+    
 }

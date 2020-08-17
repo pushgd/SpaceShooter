@@ -13,8 +13,11 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     AudioClip collisionSound;
 
-    AudioSource audioSource;
+    [SerializeField]
+    int HP=1;
 
+    AudioSource audioSource;
+    
     void Start()
     {
         Destroy(this.gameObject, lifespan);
@@ -25,6 +28,10 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * speed * Time.deltaTime;
+        if(HP <=0)
+        {
+            Destroy(this.gameObject,1);
+        }
        
     }
 
@@ -32,12 +39,25 @@ public class Bullet : MonoBehaviour
     {
         return damage;
     }
+    public int getHP()
+    {
+        return HP;
+    }
+
+    public void reduceHPby(int x)
+    {
+        HP = HP - x;
+        
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print("Bullet: Collision");
 
-        audioSource.PlayOneShot(collisionSound);
-        //Destroy(collision.gameObject,1);
+       
+
         Destroy(GetComponent<BoxCollider2D>());
+        Destroy(GetComponent<SpriteRenderer>());
     }
 }
