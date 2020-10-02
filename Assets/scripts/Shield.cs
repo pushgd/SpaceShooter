@@ -40,7 +40,7 @@ public class Shield : MonoBehaviour
 
     public void onShieldDamage(GameObject g)
     {
-        print("Shield Damaged");
+  
         shield.SetActive(true);
         displayCooldown = 0;
         shield.transform.eulerAngles = new Vector3(0,0,g.transform.eulerAngles.z+90);

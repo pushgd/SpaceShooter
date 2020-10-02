@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class FireButton : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
+    [SerializeField]
+    string action;
     bool buttonPressed = false;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +18,6 @@ public class FireButton : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoint
     // Update is called once per frame
     void Update()
     {
-        
     }
 
 
@@ -38,7 +39,7 @@ public class FireButton : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoint
 
     public bool isPressed()
     {
-        return Input.GetButton("Fire1") || buttonPressed;
+        return Input.GetButton(action) || buttonPressed;
     }
 
 

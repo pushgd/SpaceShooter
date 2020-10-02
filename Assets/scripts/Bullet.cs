@@ -4,40 +4,34 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
-    int damage = 5;
-    [SerializeField]
-    float speed = 10;
-    [SerializeField]
-    float lifespan = 5;
-    [SerializeField]
-    AudioClip collisionSound;
 
-    [SerializeField]
     int HP=1;
-
-    AudioSource audioSource;
+    [SerializeField]
+    BulletInfo info;
     
     void Start()
     {
-        Destroy(this.gameObject, lifespan);
-        audioSource = GetComponent<AudioSource>();
+        HP = info.HP;
+        Destroy(this.gameObject, info.lifespan);
     }
  
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * speed * Time.deltaTime;
+        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * info.speed * Time.deltaTime;
         if(HP <=0)
         {
-            Destroy(this.gameObject,1);
+            
+            Destroy(this.gameObject);
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(GetComponent<SpriteRenderer>());
         }
        
     }
 
-    public int getDamage()
+    public float getDamage()
     {
-        return damage;
+        return info.damage;
     }
     public int getHP()
     {
@@ -46,18 +40,15 @@ public class Bullet : MonoBehaviour
 
     public void reduceHPby(int x)
     {
+       
         HP = HP - x;
-        
+     
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("Bullet: Collision");
 
-       
-
-        Destroy(GetComponent<BoxCollider2D>());
-        Destroy(GetComponent<SpriteRenderer>());
+        
     }
 }

@@ -6,44 +6,34 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
-    AudioSource audioSource;
-    [SerializeField]
-    [Tooltip("Turn Rate")]
-    float turnRate = 5;
-    [SerializeField]
-    [Tooltip("Max Speed")]
-    float speed = 5;
 
-
-    [SerializeField]
-    VirtualJoystick joystick;
-    [SerializeField]
-    float HP = 15;
-
-    [SerializeField]
-    float SP = 15;
-
-    [SerializeField]
-    float shieldRechargeDelay = 1;
-
-    [SerializeField]
-    float shieldRechargeRate = 0.5f;
-
-    float shieldCooldown;
-
-
+    //UI Components
     [SerializeField]
     Image HPBar;
     [SerializeField]
     Image SPBar;
+    [SerializeField]
+    VirtualJoystick joystick;
+
+    AudioSource audioSource;
+
+    float HP = 15;
+    
+    float SP = 15;
+
+    [SerializeField]
+    PlaneInfo planeInfo;
 
     float maxHP;
     float maxSP;
     // Start is called before the first frame update
-
+    float shieldCooldown = 1;
 
     void Start()
     {
+        HP = planeInfo.HP;
+        SP = planeInfo.SP;
+       
         maxHP = HP;
         maxSP = SP;
     }
@@ -51,20 +41,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         handleInput();
         rechargeShield();
-        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime * speed;
+        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime * planeInfo.engine.speed;
 
     }
 
     private void rechargeShield()
     {
 
-        shieldCooldown += Time.deltaTime;
-        if (shieldCooldown > shieldRechargeDelay && SP < maxSP)
+       shieldCooldown += Time.deltaTime;
+        if (shieldCooldown > planeInfo.shieldRechargeDelay && SP < maxSP)
         {
-            print("recharing Shield");
-            SP += shieldRechargeRate;
+             SP += planeInfo.shieldRechargeRate;
 
         }
         SPBar.fillAmount = (float)SP / (float)maxSP;
@@ -95,26 +85,26 @@ public class Player : MonoBehaviour
             {
                 if (Mathf.Abs(targetAngle - currentZ) > 180)
                 {
-                    delta.z = +turnRate * Time.deltaTime;
+                    delta.z = +planeInfo.engine.turnRate * Time.deltaTime;
                 }
                 else
                 {
-                    delta.z = -turnRate * Time.deltaTime;
+                    delta.z = -planeInfo.engine.turnRate * Time.deltaTime;
                 }
             }
             if (currentZ < targetAngle)
             {
                 if (Mathf.Abs(targetAngle - currentZ) > 180)
                 {
-                    delta.z = -turnRate * Time.deltaTime;
+                    delta.z = -planeInfo.engine.turnRate * Time.deltaTime;
                 }
                 else
                 {
-                    delta.z = +turnRate * Time.deltaTime;
+                    delta.z = +planeInfo.engine.turnRate * Time.deltaTime;
                 }
 
             }
-            if (Mathf.Abs(currentZ - targetAngle) < turnRate * Time.deltaTime) //if target is near than one step distance
+            if (Mathf.Abs(currentZ - targetAngle) < planeInfo.engine.turnRate * Time.deltaTime) //if target is near than one step distance
             {
                 delta.z = targetAngle - currentZ;
             }
@@ -147,7 +137,7 @@ public class Player : MonoBehaviour
             if (b.getHP() > 0)
             {
                 b.reduceHPby(1);
-                int damage = b.getDamage();
+                float damage = b.getDamage();
 
                 takeDamage(damage,collision.gameObject);
 
@@ -164,7 +154,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void takeDamage(int damage,GameObject g)
+    private void takeDamage(float damage,GameObject g)
     {
 
         if (SP > 0)

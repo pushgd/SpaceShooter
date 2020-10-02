@@ -7,12 +7,17 @@ public class FaceObject : MonoBehaviour
     // Start is called before the first frame update
     // The target marker.
     [SerializeField]
+    PlaneInfo planeInfo;
+    [SerializeField]
     GameObject target;
 
-    [SerializeField]
-    float turnRate = 0.2f;
+
 
     Shoot shoot;
+    [SerializeField]
+    float activationDelay;
+
+    float activationCooldown;
 
     private void Start()
     {
@@ -21,10 +26,25 @@ public class FaceObject : MonoBehaviour
         {
             target = GameObject.FindGameObjectWithTag("Player");
         }
+        activationCooldown = 0;
     }
     void Update()
     {
 
+        if (activationCooldown > activationDelay)
+            rotate();
+        else
+            activationCooldown += Time.deltaTime;
+
+        //Quaternion.LerpUnclamped
+
+
+
+
+    }
+
+    private void rotate()
+    {
         Vector3 directionVector = target.transform.position - transform.position;
 
         float angle = Mathf.Atan2(directionVector.y, directionVector.x) * Mathf.Rad2Deg - 90;
@@ -34,7 +54,7 @@ public class FaceObject : MonoBehaviour
         }
         //        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), speed * Time.deltaTime);
 
-        Debug.DrawRay(transform.position, directionVector, Color.red);
+        //Debug.DrawRay(transform.position, directionVector, Color.red);
 
 
         float currentZ = transform.eulerAngles.z;
@@ -43,26 +63,26 @@ public class FaceObject : MonoBehaviour
         {
             if (Mathf.Abs(angle - currentZ) > 180)
             {
-                delta.z = +turnRate * Time.deltaTime;
+                delta.z = +planeInfo.engine.turnRate * Time.deltaTime;
             }
             else
             {
-                delta.z = -turnRate * Time.deltaTime;
+                delta.z = -planeInfo.engine.turnRate * Time.deltaTime;
             }
         }
         if (currentZ < angle)
         {
             if (Mathf.Abs(angle - currentZ) > 180)
             {
-                delta.z = -turnRate * Time.deltaTime;
+                delta.z = -planeInfo.engine.turnRate * Time.deltaTime;
             }
             else
             {
-                delta.z = +turnRate * Time.deltaTime;
+                delta.z = +planeInfo.engine.turnRate * Time.deltaTime;
             }
 
         }
-        if (Mathf.Abs(currentZ - angle) < turnRate * Time.deltaTime) //if target is near than one step distance
+        if (Mathf.Abs(currentZ - angle) < planeInfo.engine.turnRate * Time.deltaTime) //if target is near than one step distance
         {
             delta.z = angle - currentZ;
         }
@@ -77,14 +97,16 @@ public class FaceObject : MonoBehaviour
         }
         if (diff < 5)
         {
-            shoot.targetInSight(target, directionVector);
+            Vector3 sqDistance = target.transform.position - transform.position;
+            if (Vector3.SqrMagnitude(sqDistance) < planeInfo.range * planeInfo.range)
+            {
+                shoot.targetInSight(target, directionVector);
+            }
         }
+    }
 
-
-        //Quaternion.LerpUnclamped
-
-
-
-
+    public void setActivationDelay(float x)
+    {
+        activationDelay = x;
     }
 }

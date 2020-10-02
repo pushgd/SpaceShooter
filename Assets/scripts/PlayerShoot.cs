@@ -5,30 +5,49 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]
-    string bullet = "bullet";
+   
 
-    [SerializeField]
-    float fireRate = 1;
+    
+
+    
     AudioSource audioSource;
     [SerializeField]
-    AudioClip fire;
+    PlaneInfo planeInfo;
+    [SerializeField]
+    AudioClip fireSound;
 
     [SerializeField]
     FireButton fireButton;
+    [SerializeField]
+    FireButton altFireButton;
+    [SerializeField]
+    private string[] gunName;
 
-    public string[] gunName;
 
     private Transform[] gunList;
-    private float coolDown;
+    private float firecoolDown;
+    private float altFirecoolDown;
 
-    GameObject g1;
-    private ParticleSystem p;
+    GameObject bulletResource;
+    GameObject altBulletResource;
+  
+
+
 
     void Start()
     {
-        g1 = Resources.Load<GameObject>(bullet);
-        coolDown = fireRate + 1;
+        bulletResource = Resources.Load<GameObject>("bullets\\playerBullet\\"+planeInfo.gun.bulletInfo.bullet);
+        altBulletResource = Resources.Load<GameObject>("bullets\\playerBullet\\"+planeInfo.altGun.bulletInfo.bullet);
+
+        firecoolDown = planeInfo.gun.fireRate+ 1;
+        altFirecoolDown = planeInfo.altGun.fireRate + 1;
+        initGuns();
+        audioSource = GetComponent<AudioSource>();
+
+    }
+
+    private void initGuns()
+    {
         gunList = new Transform[gunName.Length];
         int gi = 0;
         for (int i = 0; i < transform.childCount; i++)
@@ -43,31 +62,46 @@ public class PlayerShoot : MonoBehaviour
             }
 
         }
-        audioSource = GetComponent<AudioSource>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (fireButton.isPressed() && coolDown > fireRate)
-        {
-
-            foreach (Transform gun in gunList)
-            {
-                GameObject b = Instantiate(g1, gun.position, gun.rotation);
-               
-
-            }
-            coolDown = 0;
-            audioSource.PlayOneShot(fire);
-            
-        }
-        coolDown += Time.deltaTime;
+        fire();
+        altFire();
         //print("coolDown" + coolDown);
 
     }
 
+    private void fire()
+    {
+        if (fireButton.isPressed() && firecoolDown > planeInfo.gun.fireRate)
+        {
+
+            foreach (Transform gun in gunList)
+            {
+                GameObject b = Instantiate(bulletResource, gun.position, gun.rotation);
+            }
+            firecoolDown = 0;
+            audioSource.PlayOneShot(fireSound);
+        }
+        firecoolDown += Time.deltaTime;
+    }
+
+
+    private void altFire()
+    {
+        if (altFireButton.isPressed() && altFirecoolDown > planeInfo.altGun.fireRate)
+        {
+
+            foreach (Transform gun in gunList)
+            {
+                GameObject b = Instantiate(altBulletResource, gun.position, gun.rotation);
+            }
+            altFirecoolDown = 0;
+            audioSource.PlayOneShot(fireSound);
+        }
+        altFirecoolDown += Time.deltaTime;
+    }
 
 }
