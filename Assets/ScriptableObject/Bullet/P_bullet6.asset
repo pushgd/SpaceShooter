@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77b62aa969b53942bfb051b7d658d09, type: 3}
   m_Name: P_bullet6
   m_EditorClassIdentifier: 
+  text: bullet6
+  text2: text
+  displayObject: {fileID: 5437239132091270049, guid: f4747a50189285541a8b274dd9f5f685,
+    type: 3}
   bullet: bullet6
-  speed: 15
-  damage: 5
+  speed: 16
+  damage: 30
   lifespan: 5
   HP: 5

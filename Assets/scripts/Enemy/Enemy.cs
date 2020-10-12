@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class Enemy : MonoBehaviour
 
     private ParticleSystem p;
     Shield s;
+
+    [SerializeField]
+    Image hpFill;
+
     void Start()
     {
         HP = planeInfo.HP;
@@ -25,7 +30,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (hpFill != null)
+        {
+           
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,7 +44,10 @@ public class Enemy : MonoBehaviour
             if (b.getHP() > 0)
             {
                 b.reduceHPby(1);
-                takeDamage(collision, b);
+                if (HP > 0)
+                {
+                    takeDamage(collision, b);
+                }
             }
 
         }
@@ -48,6 +59,7 @@ public class Enemy : MonoBehaviour
     {
         float damage = b.getDamage();
 
+       
         HP -= damage;
         if (HP <= 0)
         {
@@ -58,6 +70,8 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
             ParticleSystem g = Instantiate(explosion, transform.position, transform.rotation);
             g.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            GameManager.gameManager.onEnemyKill();
+
 
         }
     }
@@ -67,13 +81,18 @@ public class Enemy : MonoBehaviour
         return HP;
     }
 
+    public float getMaxHP()
+    {
+        return planeInfo.HP;
+    }
+
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(transform.position, planeInfo.range);
-        
+
 
     }
 

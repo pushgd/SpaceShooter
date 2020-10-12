@@ -39,7 +39,10 @@ public class FireButton : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoint
 
     public bool isPressed()
     {
-        return Input.GetButton(action) || buttonPressed;
+        if (Application.platform == RuntimePlatform.Android)
+            return buttonPressed;
+        else
+            return Input.GetButton(action);
     }
 
 

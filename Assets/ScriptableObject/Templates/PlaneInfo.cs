@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "Plane", order = 1)]
-public class PlaneInfo : ScriptableObject
+public class PlaneInfo : Info
 {
+
     public float HP = 25;
     public float SP = 25;
 

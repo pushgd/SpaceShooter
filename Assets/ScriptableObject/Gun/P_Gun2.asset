@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf212368941c61349a6fec781358a830, type: 3}
   m_Name: P_Gun2
   m_EditorClassIdentifier: 
+  text: Gun2
+  text2: text
+  displayObject: {fileID: 7221642246203655072, guid: 28576370768f1a14ea7ca19fdefa7445,
+    type: 3}
   fireRate: 1
   bulletInfo: {fileID: 11400000, guid: af5523eed6c5ecf4a93f783051217543, type: 2}

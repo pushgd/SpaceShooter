@@ -93,7 +93,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if (altFireButton.isPressed() && altFirecoolDown > planeInfo.altGun.fireRate)
         {
-
+            
             foreach (Transform gun in gunList)
             {
                 GameObject b = Instantiate(altBulletResource, gun.position, gun.rotation);

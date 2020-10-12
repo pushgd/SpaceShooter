@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3269210526029938443}
-  - component: {fileID: 3269210526029938548}
-  - component: {fileID: 570497545857152960}
   - component: {fileID: 626839100330561515}
   - component: {fileID: 7111564888523522068}
   - component: {fileID: 9178530380799103987}
+  - component: {fileID: 1619888843}
+  - component: {fileID: 3269210526029938548}
+  - component: {fileID: 570497545857152960}
   - component: {fileID: 3207090040157279348}
   - component: {fileID: 1619888842}
-  - component: {fileID: 1619888843}
   m_Layer: 8
   m_Name: Enemy2
   m_TagString: Enemy
@@ -39,6 +39,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &626839100330561515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269210526029938442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f6ea0ad91b2854782c1d363e656276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+--- !u!114 &7111564888523522068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269210526029938442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07f1b8621164e2744a064c3d42924192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  target: {fileID: 0}
+  activationDelay: 0
+--- !u!114 &9178530380799103987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269210526029938442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0099f30f5482ad647ba805f62a61ce00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  fireSound: {fileID: 8300000, guid: 0e142a0ffe83eac469f99c70aeb4a2b8, type: 3}
+  gunName:
+  - gun
+--- !u!114 &1619888843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269210526029938442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcc247c967aff54aba9ecd8b0786e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  SP: 10
+  explosion: {fileID: 6838913169546981236, guid: 9f5b2e1ea7555a94088e59bb558b8a36,
+    type: 3}
 --- !u!212 &3269210526029938548
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109,50 +169,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &626839100330561515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3269210526029938442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f6ea0ad91b2854782c1d363e656276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
---- !u!114 &7111564888523522068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3269210526029938442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f1b8621164e2744a064c3d42924192, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
-  target: {fileID: 0}
-  activationDelay: 0
---- !u!114 &9178530380799103987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3269210526029938442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0099f30f5482ad647ba805f62a61ce00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
-  fireSound: {fileID: 8300000, guid: 0e142a0ffe83eac469f99c70aeb4a2b8, type: 3}
-  gunName:
-  - gun
 --- !u!61 &3207090040157279348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -275,22 +291,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1619888843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3269210526029938442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbcc247c967aff54aba9ecd8b0786e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planeInfo: {fileID: 0}
-  SP: 10
-  explosion: {fileID: 6838913169546981236, guid: 9f5b2e1ea7555a94088e59bb558b8a36,
-    type: 3}
 --- !u!1001 &5107831825050264775
 PrefabInstance:
   m_ObjectHideFlags: 0

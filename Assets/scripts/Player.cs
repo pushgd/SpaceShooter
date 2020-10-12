@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     float shieldCooldown = 1;
 
+    Shield shield;
     void Start()
     {
         HP = planeInfo.HP;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
        
         maxHP = HP;
         maxSP = SP;
+        shield = GetComponent<Shield>();
     }
 
     // Update is called once per frame
@@ -123,7 +125,7 @@ public class Player : MonoBehaviour
 
     void onPlayerDie()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -160,7 +162,7 @@ public class Player : MonoBehaviour
         if (SP > 0)
         {
             SP -= damage;
-            GetComponent<Shield>().onShieldDamage(g);
+           shield.onShieldDamage(g);
         }
         else
         {

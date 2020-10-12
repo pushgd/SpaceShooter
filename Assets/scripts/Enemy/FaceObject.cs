@@ -95,7 +95,7 @@ public class FaceObject : MonoBehaviour
         {
             diff = diff + 360;
         }
-        if (diff < 5)
+        if (diff < 15)
         {
             Vector3 sqDistance = target.transform.position - transform.position;
             if (Vector3.SqrMagnitude(sqDistance) < planeInfo.range * planeInfo.range)

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77b62aa969b53942bfb051b7d658d09, type: 3}
   m_Name: P_bullet5
   m_EditorClassIdentifier: 
+  text: bullet5
+  text2: text
+  displayObject: {fileID: 5437239132091270049, guid: 01b4c72e574c278408418801d5acbd0e,
+    type: 3}
   bullet: bullet5
   speed: 20
   damage: 5

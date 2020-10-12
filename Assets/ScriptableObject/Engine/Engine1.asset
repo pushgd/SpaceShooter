@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865233bb4709d914cb168b64fe945837, type: 3}
   m_Name: Engine1
   m_EditorClassIdentifier: 
+  text: Engine1
+  text2: text
+  displayObject: {fileID: 5941914973580780755, guid: 619a5203bb765634cbade3801a18fabe,
+    type: 3}
   turnRate: 50
-  speed: 8
+  speed: 10

@@ -13,12 +13,11 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
     [SerializeField]
     GameObject text;
 
-    [SerializeField]
-    string[] texts;
 
     [SerializeField]
-    GameObject[] objects;
+    Info[] objects;
 
+    
     Transform objectPosition;
 
     GameObject displayObject;
@@ -53,12 +52,12 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
 
     private void onIndexChange()
     {
-        text.GetComponent<TextMesh>().text = texts[currentIndex];
+        text.GetComponent<TextMesh>().text = objects[currentIndex].text;
         Destroy(displayObject);
-        displayObject = Instantiate(objects[currentIndex], objectPosition.position, objectPosition.rotation);
+        displayObject = Instantiate(objects[currentIndex].displayObject, objectPosition.position, objectPosition.rotation);
         Destroy(displayObject.GetComponent<Bullet>());
-        
-       
+
+
     }
  
     public void onUIEvent(int eventID, Transform transform, object[] arguments)
@@ -75,7 +74,7 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
                 }
                 onIndexChange();
                 args[0] = currentIndex;
-                args[1] = texts[currentIndex];
+                args[1] = objects[currentIndex];
                 listener.onUIEvent(Constant.INDEX_DECREASED, this.transform, args);
                 
             }
@@ -86,14 +85,14 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
             if (eventID == Constant.MOUSE_EVENT_UP)
             {
                 currentIndex++;
-                if (currentIndex >= texts.Length)
+                if (currentIndex >= objects.Length)
                 {
-                    currentIndex = texts.Length - 1;
+                    currentIndex = objects.Length - 1;
                 }
             }
             onIndexChange();
             args[0] = currentIndex;
-            args[1] = texts[currentIndex];
+            args[1] = objects[currentIndex];
             listener.onUIEvent(Constant.INDEX_INCREASED, this.transform, args);
         }
     }
