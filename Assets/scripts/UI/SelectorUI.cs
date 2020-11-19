@@ -23,9 +23,6 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
     GameObject displayObject;
     private int currentIndex = 0;
 
-    [SerializeField]
-    PlaneInfo planeInfo;
-
     private UIEventListener listener;
     private System.Object[] args;
     
@@ -64,6 +61,7 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
     {
         if (leftButton.name == transform.name)
         {
+            
             if (eventID == Constant.MOUSE_EVENT_UP)
             {
                 currentIndex--;
@@ -89,11 +87,13 @@ public class SelectorUI : MonoBehaviour, UIEventListener,UIElement
                 {
                     currentIndex = objects.Length - 1;
                 }
+                onIndexChange();
+                args[0] = currentIndex;
+                args[1] = objects[currentIndex];
+                print(objects[currentIndex]+" "+currentIndex);
+                listener.onUIEvent(Constant.INDEX_INCREASED, this.transform, args);
             }
-            onIndexChange();
-            args[0] = currentIndex;
-            args[1] = objects[currentIndex];
-            listener.onUIEvent(Constant.INDEX_INCREASED, this.transform, args);
+           
         }
     }
 

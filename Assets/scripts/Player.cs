@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     AudioSource audioSource;
 
     float HP = 15;
-    
+
     float SP = 15;
 
     [SerializeField]
@@ -30,11 +30,18 @@ public class Player : MonoBehaviour
     float shieldCooldown = 1;
 
     Shield shield;
+    float speed = 0.5f;
+
+    float currentMagnitude;
+
+    float acclerationCounter = 1.0f;
+
+    Vector3 input;
     void Start()
     {
         HP = planeInfo.HP;
         SP = planeInfo.SP;
-       
+
         maxHP = HP;
         maxSP = SP;
         shield = GetComponent<Shield>();
@@ -43,20 +50,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         handleInput();
         rechargeShield();
-        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime * planeInfo.engine.speed;
+
+       
 
     }
 
     private void rechargeShield()
     {
 
-       shieldCooldown += Time.deltaTime;
+        shieldCooldown += Time.deltaTime;
         if (shieldCooldown > planeInfo.shieldRechargeDelay && SP < maxSP)
         {
-             SP += planeInfo.shieldRechargeRate;
+            SP += planeInfo.shieldRechargeRate;
 
         }
         SPBar.fillAmount = (float)SP / (float)maxSP;
@@ -66,13 +74,34 @@ public class Player : MonoBehaviour
 
     private void handleInput()
     {
-        respondToMovementInput();
+        input = new Vector3(joystick.getHorizontalAxis(), joystick.getVerticalAxis());
+        RotateInput();
+        acclerationCounter += Time.deltaTime;
+        float mag = input.magnitude;
+      
+        if(mag <= 0.5f)
+        {
+            mag = 0.5f;
+        }
+
+       
+
+
+        if (acclerationCounter >= 1f)
+        {
+            acclerationCounter = 0;
+            speed = speed + planeInfo.engine.accleration;
+  
+            speed = Mathf.Clamp(speed, 0.5f, planeInfo.engine.speed);
+            
+        }
+        transform.position += new Vector3(-Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), 0) * Time.deltaTime * speed*mag;
+        
     }
 
-    private void respondToMovementInput()
+    private void RotateInput()
     {
-        Vector3 input = new Vector3(joystick.getHorizontalAxis(), joystick.getVerticalAxis());
-
+         
         if (input.magnitude != 0)
         {
 
@@ -141,7 +170,7 @@ public class Player : MonoBehaviour
                 b.reduceHPby(1);
                 float damage = b.getDamage();
 
-                takeDamage(damage,collision.gameObject);
+                takeDamage(damage, collision.gameObject);
 
                 if (HP <= 0)
                 {
@@ -156,13 +185,13 @@ public class Player : MonoBehaviour
 
     }
 
-    private void takeDamage(float damage,GameObject g)
+    private void takeDamage(float damage, GameObject g)
     {
 
         if (SP > 0)
         {
             SP -= damage;
-           shield.onShieldDamage(g);
+            shield.onShieldDamage(g);
         }
         else
         {
@@ -170,6 +199,6 @@ public class Player : MonoBehaviour
             HPBar.fillAmount = (float)HP / (float)maxHP;
         }
         shieldCooldown = 0;
-       
+
     }
 }

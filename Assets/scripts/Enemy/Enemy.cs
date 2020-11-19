@@ -96,4 +96,9 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public PlaneInfo getPlaneInfo()
+    {
+        return planeInfo;
+    }
+
 }

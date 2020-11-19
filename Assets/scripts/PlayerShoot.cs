@@ -36,6 +36,7 @@ public class PlayerShoot : MonoBehaviour
 
     void Start()
     {
+        print(planeInfo.text);
         bulletResource = Resources.Load<GameObject>("bullets\\playerBullet\\"+planeInfo.gun.bulletInfo.bullet);
         altBulletResource = Resources.Load<GameObject>("bullets\\playerBullet\\"+planeInfo.altGun.bulletInfo.bullet);
 

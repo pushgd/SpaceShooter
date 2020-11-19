@@ -18,21 +18,22 @@ public class HPBar : MonoBehaviour
         fill = transform.GetChild(0).GetComponent<Image>();
         maxHP = e.getMaxHP();
         c = new Color(fill.color.r, fill.color.g, fill.color.b, fill.color.a);
-
+        c.a = 0;
+        lastHP = maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        fill.fillAmount = Mathf.Lerp(fill.fillAmount, e.getHP() / maxHP, 0.05f);
-        if (lastHP != e.getHP())
+        //print((fill.fillAmount - (e.getHP() / maxHP)));
+        fill.fillAmount = Mathf.Lerp(fill.fillAmount, e.getHP() / maxHP, 0.09f);
+        if (lastHP != e.getHP()|| fill.fillAmount - (e.getHP() / maxHP) > 0.05f)
         {
-            c.a = 1;
+            c.a = 0.7f;
             lastHP = e.getHP();
         }
         
-        c.a -= 0.01f;
+        c.a -= 0.007f;
         fill.color = c;
     }
 }

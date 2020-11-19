@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f6ea0ad91b2854782c1d363e656276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  planeInfo: {fileID: 11400000, guid: 95bbde6089e78694485a4a2510aa8350, type: 2}
 --- !u!114 &8031742506068733176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f1b8621164e2744a064c3d42924192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  planeInfo: {fileID: 11400000, guid: 95bbde6089e78694485a4a2510aa8350, type: 2}
   target: {fileID: 0}
   activationDelay: 0
 --- !u!114 &8261731571076005663
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0099f30f5482ad647ba805f62a61ce00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  planeInfo: {fileID: 11400000, guid: 95bbde6089e78694485a4a2510aa8350, type: 2}
   fireSound: {fileID: 8300000, guid: 0e142a0ffe83eac469f99c70aeb4a2b8, type: 3}
   gunName:
   - gun1
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcc247c967aff54aba9ecd8b0786e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: 10766bd6030d7fb42aa5546806dbee6e, type: 2}
+  planeInfo: {fileID: 11400000, guid: 95bbde6089e78694485a4a2510aa8350, type: 2}
   SP: 10
   explosion: {fileID: 6838913169546981236, guid: 9f5b2e1ea7555a94088e59bb558b8a36,
     type: 3}

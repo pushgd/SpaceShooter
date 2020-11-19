@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    [SerializeField]
+    
     PlaneInfo planeInfo;
 
     AudioSource audioSource;
@@ -20,11 +20,11 @@ public class Shoot : MonoBehaviour
     GameObject g1;
     void Start()
     {
+        planeInfo = GetComponent<Enemy>().getPlaneInfo();
         g1 = Resources.Load<GameObject>("bullets\\enemyBullet\\" + planeInfo.gun.bulletInfo.bullet);
         coolDown = planeInfo.gun.fireRate + 1;
         initGuns();
         audioSource = GetComponent<AudioSource>();
-
     }
 
     private void initGuns()

@@ -181,7 +181,7 @@ MonoBehaviour:
   HPBar: {fileID: 0}
   SPBar: {fileID: 0}
   joystick: {fileID: 0}
-  planeInfo: {fileID: 11400000, guid: d029063dafbe3cb4ca87841bd2b1dfbf, type: 2}
+  planeInfo: {fileID: 11400000, guid: 95f3f0f7963c91c41b2dee67b9a25c4b, type: 2}
 --- !u!114 &351629640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5821893077bffd4389179d8df6ec14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planeInfo: {fileID: 11400000, guid: d029063dafbe3cb4ca87841bd2b1dfbf, type: 2}
+  planeInfo: {fileID: 11400000, guid: 95f3f0f7963c91c41b2dee67b9a25c4b, type: 2}
   fireSound: {fileID: 8300000, guid: e6515e1f0d243f64698eb30fc6814ec8, type: 3}
   fireButton: {fileID: 0}
   altFireButton: {fileID: 0}

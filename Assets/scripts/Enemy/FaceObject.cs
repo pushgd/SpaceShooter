@@ -6,7 +6,7 @@ public class FaceObject : MonoBehaviour
 {
     // Start is called before the first frame update
     // The target marker.
-    [SerializeField]
+    
     PlaneInfo planeInfo;
     [SerializeField]
     GameObject target;
@@ -27,6 +27,7 @@ public class FaceObject : MonoBehaviour
             target = GameObject.FindGameObjectWithTag("Player");
         }
         activationCooldown = 0;
+        planeInfo = GetComponent<Enemy>().getPlaneInfo();
     }
     void Update()
     {
@@ -74,7 +75,16 @@ public class FaceObject : MonoBehaviour
         {
             if (Mathf.Abs(angle - currentZ) > 180)
             {
-                delta.z = -planeInfo.engine.turnRate * Time.deltaTime;
+                try
+                {
+
+                    delta.z = -planeInfo.engine.turnRate * Time.deltaTime;
+                }
+                catch
+                {
+                    print(transform.name);
+                    print(planeInfo.engine);
+                }
             }
             else
             {
